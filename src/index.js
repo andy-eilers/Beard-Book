@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { BeardBook } from "./components/BeardBook";
+import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+        <BeardBook />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
