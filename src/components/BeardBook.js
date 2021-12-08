@@ -7,7 +7,7 @@ import { ApplicationViews } from "./ApplicationViews";
 import "./BeardBook.css";
 import { Login } from "./auth/Login";
 import { Register } from "./auth/Register";
-//exporting Repairs to browser in HTML
+//exporting Beard Book to browser in HTML
 export const BeardBook = () => (
     <>
       <Route

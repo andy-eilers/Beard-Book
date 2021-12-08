@@ -11,8 +11,37 @@ export const Register = (props) => {
     const existingUserCheck = () => {
         return fetch(`http://localhost:8088/users?email=${user.email}`)
             .then(res => res.json())
-            .then(user => !!user.length)
+            .then(user => {
+                //Returning array will be zero or will have a present user object matching inputted value
+                if (user.length !== 0) {
+                    conflictDialog.current.showModal()
+                } else {
+                    fetch(`http://localhost:8088/users?userName=${user.userName}`)
+                        .then(res => res.json())
+                        .then(user => {
+                            if (user.length !== 0) {
+                                conflictDialog.current.showModal()
+                            } else {
+                                fetch("http://localhost:8088/users", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify(user)
+                                })
+                                    .then(res => res.json())
+                                    .then(createdUser => {
+                                        if (createdUser.hasOwnProperty("id")) {
+                                            localStorage.setItem("bearded", createdUser.id)
+                                            history.push("/")
+                                        }
+                                    })
+                            }
+                        })
+                }
+            })
     }
+
     const handleRegister = (e) => {
         e.preventDefault()
         existingUserCheck()
@@ -40,7 +69,7 @@ export const Register = (props) => {
     }
 
     const updateUser = (evt) => {
-        const copy = {...user}
+        const copy = { ...user }
         copy[evt.target.id] = evt.target.value
         setUser(copy)
     }
@@ -58,14 +87,14 @@ export const Register = (props) => {
                 <fieldset>
                     <label htmlFor="name"> First Name </label>
                     <input onChange={updateUser}
-                           type="text" id="name" className="form-control"
-                           placeholder="What is your name" required autoFocus />
+                        type="text" id="name" className="form-control"
+                        placeholder="What is your name" required autoFocus />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="userName"> User Name </label>
                     <input onChange={updateUser}
-                            type="text" id="userName" className="form-control"
-                            placeholder="What would you like your User Name to be" required autoFocus />
+                        type="text" id="userName" className="form-control"
+                        placeholder="What would you like your User Name to be" required autoFocus />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="city"> City </label>
