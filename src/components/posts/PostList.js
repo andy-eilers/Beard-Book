@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 
 export const PostList = () => {
     const [posts, updatePosts] = useState([])
@@ -8,7 +8,7 @@ export const PostList = () => {
 
     useEffect(
         () => {
-            fetch("http://localhost:8088/posts")
+            fetch("http://localhost:8088/posts?_expand=user")
                 .then(res => res.json())
                 .then((data) => {
                     updatePosts(data)
@@ -25,7 +25,7 @@ export const PostList = () => {
             {
                 posts.map(
                     (post) => {
-                        return <p key={`post--${post.id}`}>{post.title}</p>
+                        return <div key={`post--${post.id}`}><div>{post.title}</div> <div>{post.description} posted by <Link to={`/posts/${post.id}`}>{post.user.userName}</Link></div></div>
                     }
                 )
             }

@@ -62,7 +62,7 @@ export const PostForm = () => {
                         onChange={
                             (event) => {
                                 const copy = { ...post }
-                                copy.title = event.target.value
+                                copy.description = event.target.value
                                 updatePost(copy)
                             }
                         }
@@ -75,12 +75,12 @@ export const PostForm = () => {
             </fieldsest>
             <fieldsest>
                 <div className="form-group">
-                    <label htmlFor="picture">Picture:</label>
+                    <label htmlFor="image">Image:</label>
                     <input
                         onChange={
                             (event) => {
                                 const copy = { ...post }
-                                copy.title = event.target.value
+                                copy.image = event.target.value
                                 updatePost(copy)
                             }
                         }

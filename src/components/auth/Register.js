@@ -8,7 +8,8 @@ export const Register = (props) => {
 
     const history = useHistory()
 
-    const existingUserCheck = () => {
+    const existingUserCheck = (evt) => {
+        evt.preventDefault()
         return fetch(`http://localhost:8088/users?email=${user.email}`)
             .then(res => res.json())
             .then(user => {
@@ -41,9 +42,9 @@ export const Register = (props) => {
                 }
             })
     }
-
-    const handleRegister = (e) => {
-        e.preventDefault()
+/*
+    const handleRegister = (evt) => {
+        evt.preventDefault()
         existingUserCheck()
             .then((userExists) => {
                 if (!userExists) {
@@ -67,22 +68,21 @@ export const Register = (props) => {
                 }
             })
     }
-
-    const updateUser = (evt) => {
+*/
+    const updateUser = (evt) => {        
         const copy = { ...user }
         copy[evt.target.id] = evt.target.value
         setUser(copy)
     }
 
-
     return (
         <main style={{ textAlign: "center" }}>
             <dialog className="dialog dialog--password" ref={conflictDialog}>
-                <div>Account with that email address already exists</div>
-                <button className="button--close" onClick={e => conflictDialog.current.close()}>Close</button>
+                <div>Account with that email address or user name already exists</div>
+                <button className="button--close" onClick={evt => conflictDialog.current.close()}>Close</button>
             </dialog>
 
-            <form className="form--login" onSubmit={handleRegister}>
+            <form className="form--login" onSubmit={existingUserCheck}>
                 <h1 className="h3 mb-3 font-weight-normal">Please Register for Beard Book</h1>
                 <fieldset>
                     <label htmlFor="name"> First Name </label>
