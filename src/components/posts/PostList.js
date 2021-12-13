@@ -25,7 +25,13 @@ export const PostList = () => {
             {
                 posts.map(
                     (post) => {
-                        return <div key={`post--${post.id}`}><div>{post.title}</div> <div>{post.description} posted by <Link to={`/posts/${post.id}`}>{post.user.userName}</Link></div></div>
+                        return <div key={`post--${post.id}`}>
+                            <div>{post.title}</div>
+                            <div>{post.description} posted by <Link to={`/posts/${post.id}`}>{post.user.userName}</Link></div>
+                            <div>
+                                <button onClick={() => history.push("/posts/comment")}>Comment on Post</button>
+                            </div>
+                            </div>
                     }
                 )
             }

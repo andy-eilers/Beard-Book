@@ -12,15 +12,15 @@ export const Register = (props) => {
         evt.preventDefault()
         return fetch(`http://localhost:8088/users?email=${user.email}`)
             .then(res => res.json())
-            .then(user => {
+            .then(regEmail => {
                 //Returning array will be zero or will have a present user object matching inputted value
-                if (user.length !== 0) {
+                if (regEmail.length !== 0) {
                     conflictDialog.current.showModal()
                 } else {
                     fetch(`http://localhost:8088/users?userName=${user.userName}`)
                         .then(res => res.json())
-                        .then(user => {
-                            if (user.length !== 0) {
+                        .then(regName => {
+                            if (regName.length !== 0) {
                                 conflictDialog.current.showModal()
                             } else {
                                 fetch("http://localhost:8088/users", {
@@ -85,25 +85,15 @@ export const Register = (props) => {
             <form className="form--login" onSubmit={existingUserCheck}>
                 <h1 className="h3 mb-3 font-weight-normal">Please Register for Beard Book</h1>
                 <fieldset>
-                    <label htmlFor="name"> First Name </label>
-                    <input onChange={updateUser}
-                        type="text" id="name" className="form-control"
-                        placeholder="What is your name" required autoFocus />
-                </fieldset>
+                    <label htmlFor="email"> Email address </label>
+                    <input onChange={updateUser} type="email" id="email" className="form-control" placeholder="Used for Login" required />
+                </fieldset>                 
                 <fieldset>
                     <label htmlFor="userName"> User Name </label>
                     <input onChange={updateUser}
                         type="text" id="userName" className="form-control"
                         placeholder="What would you like your User Name to be" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="city"> City </label>
-                    <input onChange={updateUser} type="text" id="address" className="form-control" placeholder="City location" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Email address </label>
-                    <input onChange={updateUser} type="email" id="email" className="form-control" placeholder="Email address" required />
-                </fieldset>
+                </fieldset>             
                 <fieldset>
                     <button type="submit"> Register </button>
                 </fieldset>
