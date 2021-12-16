@@ -6,7 +6,7 @@ import { PosterProfile } from "./posts/PosterProfile"
 import { ProfileForm } from "./users/ProfileForm"
 import { UserProfile } from "./users/UserProfile"
 import { CommentForm } from "./comments/CommentForm"
-import { Comment } from "./comments/CommentList"
+
 
 export const ApplicationViews = () => {
     return (
@@ -23,7 +23,7 @@ export const ApplicationViews = () => {
                 <PostList />
             </Route>
 
-            <Route exact path="/posts/:posterProfileId(\d+)">
+            <Route exact path="/profile/:posterProfileId(\d+)">
                 <PosterProfile />
             </Route>
 
@@ -31,11 +31,7 @@ export const ApplicationViews = () => {
                 <PostForm />
             </Route>
 
-            <Route exact path="/comments/comment">
-                <CommentForm />
-            </Route>
-
-            <Route path="/posts/comment">
+            <Route path="/posts/:postId(\d+)">
                 <CommentForm />
             </Route>
         </>

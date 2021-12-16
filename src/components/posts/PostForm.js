@@ -5,7 +5,9 @@ export const PostForm = () => {
     const [post, updatePost] = useState({
         title: "",
         description: "",
-        image: ""
+        image: "",
+        liked: false,
+        date: ""
     });
 
     const history = useHistory()
@@ -17,6 +19,8 @@ export const PostForm = () => {
             title: post.title,
             description: post.description,
             userId: parseInt(localStorage.getItem("bearded")),
+            date: post.date,
+            liked: post.liked,
             image: post.image
         }
 
@@ -37,7 +41,7 @@ export const PostForm = () => {
     return (
         <form className="postForm">
             <h2 className="postForm__title">Create New Post</h2>
-            <fieldsest>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="title">Title:</label>
                     <input
@@ -54,8 +58,8 @@ export const PostForm = () => {
                         placeholder="Title of Your Post"
                         />
                 </div>
-            </fieldsest>
-            <fieldsest>
+            </fieldset>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="description">Description:</label>
                     <input
@@ -72,8 +76,26 @@ export const PostForm = () => {
                         placeholder="Describe Your Post"
                         />
                 </div>
-            </fieldsest>
-            <fieldsest>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="date">Submitted Date:</label>
+                    <input
+                        onChange={
+                            (event) => {
+                                const copy = { ...post }
+                                copy.date = event.target.value
+                                updatePost(copy)
+                            }
+                        }
+                        required autoFocus
+                        type="text"
+                        className="form-control"
+                        placeholder="MM-DD-YYYY"
+                        />
+                </div>
+            </fieldset>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="image">Image:</label>
                     <input
@@ -90,7 +112,7 @@ export const PostForm = () => {
                         placeholder="Image URL"
                         />
                 </div>
-            </fieldsest>
+            </fieldset>
             <button className="btn btn-primary" onClick={submitPost}>
                 Submit Post
             </button>

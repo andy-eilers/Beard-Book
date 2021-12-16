@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react"
-import { useParams, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 export const ProfileForm = () => {
     const [profile, updateProfile] = useState({
         name: "",
-        email:"",
+        userName: "",
+        email: "",
         city: "",
-        beardTypeId: "", 
+        beardTypeId: 0,
         image: ""
     });
-    const [ beardTypes, setBeardTypes ] = useState([])
+    const [beardTypes, setBeardTypes] = useState([])
     const history = useHistory()
 
     useEffect(
@@ -34,24 +35,22 @@ export const ProfileForm = () => {
         []
     )
 
-    const editProfile = (changeEvent) => {
-
-        const newProfile = {
-            "name": profile.name,
-            "email": profile.email,
-            "city": profile.city,
-            "beardType": parseInt(changeEvent.target.value), 
-            "image": profile.image
+    const editUserProfile = () => {
+        const newUserProfile = {
+            name: profile.name,
+            userName:profile.userName,
+            email: profile.email,
+            city: profile.city,
+            beardTypeId: parseInt(profile.beardTypeId)
         }
 
         return fetch(`http://localhost:8088/users/${parseInt(localStorage.getItem("bearded"))}`, {
             method: "PUT",
             headers: {
-                "content-Type": "application/json"
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify(newProfile)
+            body: JSON.stringify(newUserProfile)
         })
-
             .then(() => {
                 history.push("/users")
             })
@@ -60,7 +59,7 @@ export const ProfileForm = () => {
     return (
         <form className="profileForm">
             <h2 className="postForm__title">Edit Your Profile</h2>
-            <fieldsest>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input
@@ -75,10 +74,28 @@ export const ProfileForm = () => {
                         type="text"
                         className="form-control"
                         placeholder="First Name"
-                        />
+                    />
                 </div>
-            </fieldsest>
-            <fieldsest>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="userName">User Name:</label>
+                    <input
+                        onChange={
+                            (event) => {
+                                const copy = { ...profile }
+                                copy.userName = event.target.value
+                                updateProfile(copy)
+                            }
+                        }
+                        required autoFocus
+                        type="text"
+                        className="form-control"
+                        placeholder="User Name"
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input
@@ -93,10 +110,10 @@ export const ProfileForm = () => {
                         type="text"
                         className="form-control"
                         placeholder="Email: Used for Login"
-                        />
+                    />
                 </div>
-            </fieldsest>
-            <fieldsest>
+            </fieldset>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="city">City:</label>
                     <input
@@ -111,27 +128,32 @@ export const ProfileForm = () => {
                         type="text"
                         className="form-control"
                         placeholder="City"
-                        />
+                    />
                 </div>
-            </fieldsest>
-            <fieldsest>
+            </fieldset>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="beardType">Beard Type:</label>
-                    <select id="beardType" onChange={ updateProfile }>
+                    <select id="beardType" onChange={
+                        (event) => {
+                            const copy = { ...profile }
+                            copy.beardTypeId = event.target.value
+                            updateProfile(copy)
+                        }
+                    }>
                         {
                             beardTypes.map(
                                 (beardType) => {
-                                    return<option value={beardType.id} key={`beardType--${beardType.id}`}>
-                                        { beardType.name }
+                                    return <option value={beardType.id} key={`beardType--${beardType.id}`}>
+                                        {beardType.name}
                                     </option>
                                 }
                             )
                         }
                     </select>
-                    <input/>
                 </div>
-            </fieldsest>
-            <fieldsest>
+            </fieldset>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="image">Image:</label>
                     <input
@@ -146,10 +168,10 @@ export const ProfileForm = () => {
                         type="text"
                         className="form-control"
                         placeholder="Image URL"
-                        />
+                    />
                 </div>
-            </fieldsest>
-            <button className="btn btn-primary" onClick={editProfile}>
+            </fieldset>
+            <button className="btn btn-primary" onClick={editUserProfile}>
                 Edit Profile
             </button>
         </form>

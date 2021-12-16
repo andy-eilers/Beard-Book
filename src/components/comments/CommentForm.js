@@ -1,23 +1,35 @@
-import React, { useState } from "react"
-import { useHistory } from "react-router-dom"
+import React, { useState, useEffect } from "react"
+import { useHistory, useParams } from "react-router-dom"
 
 export const CommentForm = () => {
     const [comment, updateComment] = useState({
         postId: "",
         body: "",
-        userId: "",
-        date: "",
-    })
-
+        date: ""
+    });
+    
+    const [post, updatePost] = useState([])
     const history = useHistory()
+    const {postId} = useParams()
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/posts/${postId}?_expand=user`)
+                .then(res => res.json())
+                .then((data) => {
+                    updatePost(data)
+                })
+        },
+        [ postId ]
+    )
 
     const postComment = (event) => {
         event.preventDefault()
 
         const newComment = {
-            postId: comment.postId,
+            postId: parseInt(postId),
             body: comment.body,
-            userId: comment.userId,
+            userId: parseInt(localStorage.getItem("bearded")),
             date: comment.date
         }
 
@@ -45,32 +57,32 @@ export const CommentForm = () => {
                         onChange={
                             (event) => {
                                 const copy = { ...comment }
-                                copy.name = event.target.value
+                                copy.body= event.target.value
                                 updateComment(copy)
                             }
                         }
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder="Name of Employee"
+                        placeholder="Speak Your Peace"
                         />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="specialty">Employee Specialty:</label>
+                    <label htmlFor="date">Date Commenting:</label>
                     <input
                         onChange={
                             (event) => {
                                 const copy = { ...comment }
-                                copy.specialty = event.target.value
+                                copy.date= event.target.value
                                 updateComment(copy)
                             }
                         }
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder="Employee Specialty"
+                        placeholder="MM-DD-YYYY"
                         />
                 </div>
             </fieldset>
