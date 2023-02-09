@@ -26,7 +26,7 @@ export const UserList = () => {
             }
 
             else {
-                updateMessage(`There are ${users.lenth} Beard Book users`)
+                updateMessage(`There are ${users.length} Beard Book users`)
             }
         },
         [users]

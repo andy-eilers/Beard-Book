@@ -5,7 +5,7 @@ export const PostForm = () => {
     const [post, updatePost] = useState({
         title: "",
         description: "",
-        image: "",
+        imageURL: "",
         liked: false,
         date: ""
     });
@@ -21,7 +21,7 @@ export const PostForm = () => {
             userId: parseInt(localStorage.getItem("bearded")),
             date: post.date,
             liked: post.liked,
-            image: post.image
+            imageURL: post.imageURL
         }
 
         const fetchOption = {
@@ -40,9 +40,9 @@ export const PostForm = () => {
 
     return (
         <form className="postForm">
-            <h2 className="postForm__title">Create New Post</h2>
+            <h2 className="post__title">Create New Post</h2>
             <fieldset>
-                <div className="form-group">
+                <div className="post__title">
                     <label htmlFor="title">Title:</label>
                     <input
                         onChange={
@@ -60,7 +60,7 @@ export const PostForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form-group">
+                <div className="post__description">
                     <label htmlFor="description">Description:</label>
                     <input
                         onChange={
@@ -96,18 +96,18 @@ export const PostForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="image">Image:</label>
+                <div className="beardPhoto">
+                    <label htmlFor="url">Image:</label>
                     <input
                         onChange={
                             (event) => {
                                 const copy = { ...post }
-                                copy.image = event.target.value
+                                copy.imageURL = event.target.value
                                 updatePost(copy)
                             }
                         }
                         required autoFocus
-                        type="text"
+                        type="url"
                         className="form-control"
                         placeholder="Image URL"
                         />

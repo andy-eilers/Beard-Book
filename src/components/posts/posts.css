@@ -1,3 +1,61 @@
-.following {
-    color:grey 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Source+Sans+Pro:wght@200&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&family=Montserrat:wght@900&family=Source+Sans+Pro:wght@200&display=swap');
+
+.posts {
+    color:#675746;
+    font-family: 'Lora', serif;
+    margin: 1px;
+    padding: -50px;
+    font-size: 12px;
 }
+
+.beardBook {
+    margin: 25px;
+    color: #0e0d0d;
+    font-family: 'Arial', sans-serif;
+    font-size: 100px;
+    margin: 25px;
+    padding: 40px;
+}
+
+.postDescription {
+    color:#675746;
+    font-family: 'Lora', 'Franklin Gothic Medium', Arial Narrow;
+    padding: 12px;
+    margin: 40px;
+    border: #111010 2px solid;
+    border-radius: 20px;
+    background-color: #d4c28e;
+    width: 300px;
+
+ }
+
+ .beardPhoto {
+     padding: 30px;
+     margin: -10px;
+     border: #111010 2px solid;
+     border-radius: 20px;
+     width: 34%;
+ }
+
+ .postTitle {
+     margin: 25px;
+     color: #c49619;
+     font-family: 'Arial', sans-serif;
+     font-size: 50px;
+     margin: 15px;
+     padding: 40px;
+ }
+
+ .button {
+    margin: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+ .paintIcon {
+     width: 70px;
+     border: white;
+     margin: 1px;
+     padding: -90px;
+ }

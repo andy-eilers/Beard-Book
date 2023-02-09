@@ -5,6 +5,7 @@ export const CommentForm = () => {
     const [comment, updateComment] = useState({
         postId: "",
         body: "",
+        userName: "",
         date: ""
     });
     
@@ -14,7 +15,7 @@ export const CommentForm = () => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/posts/${postId}?_expand=user`)
+            fetch(`http://localhost:8088/posts/${postId}?_embed=user`)
                 .then(res => res.json())
                 .then((data) => {
                     updatePost(data)
@@ -30,6 +31,7 @@ export const CommentForm = () => {
             postId: parseInt(postId),
             body: comment.body,
             userId: parseInt(localStorage.getItem("bearded")),
+            userName: comment.userName,
             date: comment.date
         }
 
